@@ -8,26 +8,11 @@ const koaBody = require('koa-body')
 const json = require('koa-json')
 const app = new Koa()
 const router = new Router()
-
-// 给所有路由追加统一的前缀
 router.prefix('/api')
 
-router.get('/test', ctx => {
-  // 获取查询字符串
-  const params = ctx.request.query
-  console.log(params)
-  ctx.body = {
-    ...params
-  }
-})
 
-router.post('/post', async (ctx) => {
-  let { body } = ctx.request
-  console.log(ctx.request)
-  ctx.body = {
-    ...body
-  }
-})
+const combineRouter = require('./routes/routes')
+
 
 app.use(koaBody())
 app.use(cors())
@@ -36,6 +21,7 @@ app.use(json({
 }))
 // 中间件的顺序很重要
 app.use(router.routes()).use(router.allowedMethods())
+app.use(combineRouter())
 // 1. request, method, response是啥？
 // 2. api url => function, router路由的原理
 // 3. ctx, async
