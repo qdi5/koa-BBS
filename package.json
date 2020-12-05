@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/qdi5/koa-BBS#readme",
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-json": "^2.0.2",
     "koa-router": "^10.0.0"
   }
 }
