@@ -1,4 +1,4 @@
-const Koa = require('koa')
+import Koa from 'koa'
 const path = require('path')
 // 处理跨域的请求
 const cors = require('@koa/cors')
@@ -12,7 +12,7 @@ const statics = require('koa-static')
 const json = require('koa-json')
 const app = new Koa()
 // router.prefix('/api')
-const combineRouter = require('./routes/routes')
+const combineRouter = require('../routes/routes')
 
 app.use(helmet())
 app.use(statics(path.join(__dirname, 'public')))
