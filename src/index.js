@@ -8,23 +8,36 @@ const koaBody = require('koa-body')
 const helmet = require('koa-helmet')
 // 静态资源服务
 const statics = require('koa-static')
+import compose from 'koa-compose'
 // 美化json返回数据
 const json = require('koa-json')
 const app = new Koa()
 // router.prefix('/api')
-const combineRouter = require('../routes/routes')
+const combineRouter = require('./routes/routes')
 
-app.use(helmet())
+/* app.use(helmet())
 app.use(statics(path.join(__dirname, 'public')))
 app.use(koaBody())
 app.use(cors())
 app.use(json({
   pretty: true
-}))
+})) */
 
 // 中间件的顺序很重要
 // app.use(router.routes()).use(router.allowedMethods())
-app.use(combineRouter())
+// app.use(combineRouter())
+const middleware = compose([
+  helmet(),
+  statics(path.join(__dirname, 'public')),
+  koaBody(),
+  cors(),
+  json({
+    pretty: true
+  }),
+  combineRouter()
+])
+
+app.use(middleware)
 // 1. request, method, response是啥？
 // 2. api url => function, router路由的原理
 // 3. ctx, async
