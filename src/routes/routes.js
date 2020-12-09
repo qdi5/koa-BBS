@@ -5,5 +5,6 @@ const broutes = require('./bRouter')
 const publicRouter = require('./PublicRouter')
 module.exports = combineRoutes(
   aroutes,
-  broutes
+  broutes,
+  publicRouter
 )
