@@ -1,9 +1,12 @@
-const path = require('path')
-const WebpackMerge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.config.base')
 
-const webpackconfig = WebpackMerge(baseWebpackConfig, {
-  mode: 'development'
+const webpackconfig = merge(baseWebpackConfig, {
+  mode: 'development',
+  devtool: 'eval-source-map',
+  stats: {
+    children: false
+  }
 })
 
 module.exports = webpackconfig

@@ -1,18 +1,18 @@
 const path = require('path')
+const utils = require('./utils')
+const webpack = require('webpack')
 const nodeExcternals = require('webpack-node-externals')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpack = require('webpack')
+
 const webpackconfig = {
   target: 'node',
-  mode: 'development',
   entry: {
-    server: path.join(__dirname, './src/index.js')
+    server: path.join(utils.APP_PATH, 'index.js')
   },
   output: {
     filename: '[name].bundle.js',
-    path:  path.join(__dirname, './dist')
+    path:  utils.DIST_PATH
   },
-  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -20,6 +20,7 @@ const webpackconfig = {
         use: {
           loader: 'babel-loader'
         },
+        // 排除node_modules目录
         exclude: [path.join(__dirname, '/node_modules')]
       }
     ]
@@ -38,8 +39,7 @@ const webpackconfig = {
   node: {
     global: true,
     __filename: true,
-    __dirname: true,
-
+    __dirname: true
   }
 }
 
