@@ -6,19 +6,19 @@ class PublicController {
     const captcha = svgCaptcha.create({
       size: 4,
       width: 160,
-      height: 60,
+      height: 38,
       fontSize: 50,
       ignoreChars: '0oO1ilI',
-      noise: 4,
+      noise: Math.floor(3 + Math.random() * 3),
       color: true,
       background: '#eee'
     })
     console.log(captcha)
     const data = {
       data: captcha.data,
-      text: captcha.text
+      text: captcha.text.toLowerCase()
     }
-    ctx.body = captcha.data
+    ctx.body = data
   }
 }
 
