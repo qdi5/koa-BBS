@@ -1,19 +1,19 @@
 import Koa from 'koa'
-const path = require('path')
+import path from 'path'
 // 处理跨域的请求
-const cors = require('@koa/cors')
+import cors from '@koa/cors'
 // 解析post请求体的中间件
-const koaBody = require('koa-body')
+import koaBody from 'koa-body'
 // 安全头部
-const helmet = require('koa-helmet')
+import helmet from 'koa-helmet'
 // 静态资源服务
-const statics = require('koa-static')
+import statics from 'koa-static'
 import compose from 'koa-compose'
 // 美化json返回数据
-const json = require('koa-json')
+import json from 'koa-json'
 const app = new Koa()
 // router.prefix('/api')
-const combineRouter = require('./routes/routes')
+import combineRouter from './routes/routes'
 
 /* app.use(helmet())
 app.use(statics(path.join(__dirname, 'public')))
