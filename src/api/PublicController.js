@@ -13,7 +13,6 @@ class PublicController {
       color: true,
       background: '#eee'
     })
-    console.log(captcha)
     const data = {
       data: captcha.data,
       text: captcha.text.toLowerCase()
