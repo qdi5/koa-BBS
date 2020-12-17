@@ -1,11 +1,12 @@
 import send from '../config/MailConfig'
+import { getValue, setValue } from '../config/RedisConfig'
 import moment from 'moment'
 
 class LoginController {
   constructor() {}
   async forget(ctx) {
     const { body } = ctx.request
-    console.log(body)
+    console.log('sid:\r\n' + body.sid)
     try {
       let result = await send({
         code: '1234',

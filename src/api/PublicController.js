@@ -1,8 +1,9 @@
 import svgCaptcha from 'svg-captcha'
-
+import { getValue, setValue } from '../config/RedisConfig'
 class PublicController {
   constructor () {}
   async getCaptcha (ctx) {
+    const body = ctx.request.query
     const captcha = svgCaptcha.create({
       size: 4,
       width: 160,
@@ -17,6 +18,10 @@ class PublicController {
       data: captcha.data,
       text: captcha.text.toLowerCase()
     }
+    setValue(body.sid, data.text)
+    getValue(body.sid).then(res => {
+      console.log('从redis中获取sid：\r\n', res)
+    })
     ctx.body = data
   }
 }
