@@ -11,18 +11,14 @@ import statics from 'koa-static'
 import compose from 'koa-compose'
 // 美化json返回数据
 import json from 'koa-json'
+import JWT from 'koa-jwt'
+import config from './config/index'
 const app = new Koa()
 // router.prefix('/api')
 import combineRouter from './routes/routes'
 
-/* app.use(helmet())
-app.use(statics(path.join(__dirname, 'public')))
-app.use(koaBody())
-app.use(cors())
-app.use(json({
-  pretty: true
-})) */
-
+// 定义公共路径，不需要jwt鉴权
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/] })
 // 中间件的顺序很重要
 // app.use(router.routes()).use(router.allowedMethods())
 // app.use(combineRouter())
@@ -34,7 +30,9 @@ const middleware = compose([
   json({
     pretty: true
   }),
+  jwt,
   combineRouter()
+  
 ])
 
 app.use(middleware)

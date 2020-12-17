@@ -15,6 +15,7 @@ class PublicController {
       background: '#eee'
     })
     const text = captcha.text.toLowerCase()
+    console.log(text)
     const data = {
       data: captcha.data,
       text

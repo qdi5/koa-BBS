@@ -1,7 +1,9 @@
 import send from '../config/MailConfig'
 import { getValue, setValue } from '../config/RedisConfig'
 import moment from 'moment'
-
+import jsonwebtoken from 'jsonwebtoken'
+import { findUser } from '../model/loginModel'
+import config from '../config'
 class LoginController {
   constructor() {}
   // 忘记密码
@@ -30,16 +32,24 @@ class LoginController {
     // 1、校验验证码有没有过期
     // 2、校验用户名和密码是否正确
     // 3、生成token
-    debugger
     const { username, password, sid, vercode } = ctx.request && ctx.request.body
+    // 从redis缓存中，获取验证码
     const code = await getValue(sid)
     // 缓存中的验证码存在 
     if (code) {
       if (code === vercode) {
         // 从数据库中查找对应的用户名、密码
-        if (username === 'wuzhe' && password === '123456') {
+        debugger
+        const user = await findUser(username, password)
+        if (username === user.username && password === user.password) {
+          const token = jsonwebtoken.sign({
+            _id: user.id
+          }, config.JWT_SECRET, {
+            expiresIn: '1d'
+          })
           ctx.body = {
             code: 200,
+            token: `Bearer ${token}`,
             msg: '登录成功'
           }
         } else {
