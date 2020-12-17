@@ -14,14 +14,13 @@ class PublicController {
       color: true,
       background: '#eee'
     })
+    const text = captcha.text.toLowerCase()
     const data = {
       data: captcha.data,
-      text: captcha.text.toLowerCase()
+      text
     }
-    setValue(body.sid, data.text)
-    getValue(body.sid).then(res => {
-      console.log('从redis中获取sid：\r\n', res)
-    })
+    // 设置验证码的有效期为10分钟
+    setValue(body.sid, text, 60 * 10)
     ctx.body = data
   }
 }
