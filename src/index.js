@@ -13,26 +13,26 @@ import compose from 'koa-compose'
 import json from 'koa-json'
 import JWT from 'koa-jwt'
 import config from './config/index'
-const app = new Koa()
-// router.prefix('/api')
 import combineRouter from './routes/routes'
+import ErrorHandle from './common/ErrorHandle'
+const app = new Koa()
 
 // 定义公共路径，不需要jwt鉴权
-const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/] })
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /^\/login/] })
 // 中间件的顺序很重要
 // app.use(router.routes()).use(router.allowedMethods())
 // app.use(combineRouter())
 const middleware = compose([
-  helmet(),
-  statics(path.join(__dirname, 'public')),
   koaBody(),
+  statics(path.join(__dirname, 'public')),
   cors(),
   json({
     pretty: true
   }),
+  helmet(),
+  ErrorHandle,
   jwt,
   combineRouter()
-  
 ])
 
 app.use(middleware)

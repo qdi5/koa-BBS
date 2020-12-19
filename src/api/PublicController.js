@@ -20,7 +20,7 @@ class PublicController {
       data: captcha.data,
       text
     }
-    // 设置验证码的有效期为10分钟
+    // 设置图形验证码的有效期为10分钟
     setValue(body.sid, text, 60 * 10)
     ctx.body = data
   }
