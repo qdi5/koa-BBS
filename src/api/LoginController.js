@@ -33,6 +33,7 @@ class LoginController {
     // 2、校验用户名和密码是否正确
     // 3、生成token
     const { username, password, sid, vercode } = ctx.request && ctx.request.body
+    debugger
     // 从redis缓存中，获取验证码
     const code = await getValue(sid)
     // 缓存中的验证码存在 

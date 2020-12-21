@@ -1,6 +1,16 @@
-export default (ctx, next) => {
+export default async (ctx, next) => {
   console.log('统一处理错误啊')
-  return next().catch(err => {
+  try {
+    await next()
+  } catch (err) {
+     // will only respond with JSON
+     ctx.status = err.statusCode || err.status || 500;
+     ctx.body = {
+       message: err.message
+     }
+  }
+
+/*   return await next().catch(err => {
     console.log('报错啦：\r\n')
     console.log(err)
     if (401 === err.status) {
@@ -29,5 +39,5 @@ export default (ctx, next) => {
         stack: err.stack
       } : {})
     }
-  })
+  }) */
 }

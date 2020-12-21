@@ -16,7 +16,7 @@ import config from './config/index'
 import combineRouter from './routes/routes'
 import ErrorHandle from './common/ErrorHandle'
 const app = new Koa()
-
+console.log(ErrorHandle)
 // 定义公共路径，不需要jwt鉴权
 const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /^\/login/] })
 // 中间件的顺序很重要
