@@ -72,6 +72,16 @@ class LoginController {
       }
     }
   }
+
+  async reg (ctx) {
+    // 接收客户端数据
+    const { body } = ctx.request
+    // 校验验证码的内容（时效性、有效性）
+    // 查库，看username是否被注册
+    // 查库，看name是否被注册
+    // 写入数据到数据库
+    
+  }
 }
 
 export default new LoginController()
