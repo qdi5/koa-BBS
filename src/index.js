@@ -9,6 +9,8 @@ import helmet from 'koa-helmet'
 // 静态资源服务
 import statics from 'koa-static'
 import compose from 'koa-compose'
+// koa压缩中间件
+import compress from 'koa-compress'
 // 美化json返回数据
 import json from 'koa-json'
 const app = new Koa()
@@ -36,6 +38,12 @@ const middleware = compose([
   }),
   combineRouter()
 ])
+const mode = process.env.NODE_ENV
+console.log('当前模式：', mode)
+const isDevMode = mode === 'production' ? false : true
+if (!isDevMode) {
+  app.use(compress())
+}
 
 app.use(middleware)
 // 1. request, method, response是啥？
