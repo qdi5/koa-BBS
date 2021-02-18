@@ -1,6 +1,6 @@
 import send from '../config/MailConfig'
 import { getValue, setValue } from '../config/RedisConfig'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import jsonwebtoken from 'jsonwebtoken'
 import { findUser } from '../model/loginModel'
 import config from '../config'
@@ -13,7 +13,7 @@ class LoginController {
     try {
       let result = await send({
         code: '1234',
-        expire: moment().add(30, 'minutes').format('YYYY-MM-DD HH:mm:ss'),
+        expire: dayjs().add(30, 'minutes').format('YYYY-MM-DD HH:mm:ss'),
         email: body.username,
         user: 'wuzhe'
       })
